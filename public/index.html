@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real-Time Chat</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 p-4">
+  <div class="container mx-auto">
+    <h1 class="text-2xl font-bold mb-4">Real-Time Chat</h1>
+
+    <!-- Chat Messages -->
+    <div id="messages" class="bg-white p-4 rounded shadow mb-4 h-64 overflow-y-auto"></div>
+
+    <!-- Chat Form -->
+    <form id="chatForm" class="bg-white p-4 rounded shadow">
+      <input id="messageInput" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" placeholder="Type a message..." required>
+      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-2" type="submit">Send</button>
+    </form>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+
+    // Listen for chat messages
+    socket.on('chat message', (msg) => {
+      const messagesDiv = document.getElementById('messages');
+      const messageElement = document.createElement('div');
+      messageElement.textContent = msg;
+      messageElement.className = 'p-2 mb-2 bg-gray-200 rounded';
+      messagesDiv.appendChild(messageElement);
+      messagesDiv.scrollTop = messagesDiv.scrollHeight; // Auto-scroll to the latest message
+    });
+
+    // Handle form submission
+    document.getElementById('chatForm').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const messageInput = document.getElementById('messageInput');
+      const message = messageInput.value;
+      socket.emit('chat message', message); // Emit chat message to server
+      messageInput.value = ''; // Clear input field
+    });
+  </script>
+</body>
+</html>
