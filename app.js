@@ -7,7 +7,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
+mongoose.set('strictQuery', false);
 mongoose.connect(`mongodb+srv://jayythecracker:1Orsr6iVqPVIzPTE@auth.yteqmzb.mongodb.net/?retryWrites=true&w=majority&appName=auth`, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const db = mongoose.connection;
