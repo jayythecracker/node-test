@@ -8,7 +8,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 mongoose.set('strictQuery', false);
-mongoose.connect(`mongodb+srv://jayythecracker:1Orsr6iVqPVIzPTE@auth.yteqmzb.mongodb.net/?retryWrites=true&w=majority&appName=auth`, { useNewUrlParser: true, useUnifiedTopology: true });
+//H7phtdVEZTswlTbd
+mongoose.connect("mongodb+srv://jayythecracker:H7phtdVEZTswlTbd@jayy.ryk5chg.mongodb.net/?retryWrites=true&w=majority&appName=jayy");
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
